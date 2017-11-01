@@ -171,7 +171,7 @@ public partial class MainWindow : Gtk.Window
                     {
                         using(SqlDataReader _reader = _cmd.ExecuteReader())
                         {
-                            _path = Directory.GetCurrentDirectory() + "/" + item.Label + "s.cs";
+                            _path = Directory.GetCurrentDirectory() + "/Classes/" + item.Label + "s.cs";
 
                             try
                             {
@@ -184,7 +184,8 @@ public partial class MainWindow : Gtk.Window
 
                                     while (_reader.Read())
                                     {
-                                        _File.WriteLine("\tpublic " + EntitiesDictionary[_reader["DATA_TYPE"].ToString()]
+                                        _File.WriteLine("\tpublic " +
+                                                        EntitiesDictionary[_reader["DATA_TYPE"].ToString()]
                                                         + " " + _reader["COLUMN_NAME"] +
                                                         " { get; set; }\n");
                                     }
@@ -217,5 +218,32 @@ public partial class MainWindow : Gtk.Window
 				_MessageDialog.Destroy();
             }
         }
+    }
+
+    [GLib.ConnectBefore]
+    protected void OnDatabaseEntryKeyPressEvent(object o, KeyPressEventArgs args)
+    {
+        if (args.Event.Key == Gdk.Key.Return)
+        {
+            TestConnectionButton.Press();
+        }
+    }
+
+    [GLib.ConnectBefore]
+    protected void OnUserNameEntryKeyPressEvent(object o, KeyPressEventArgs args)
+    {
+		if (args.Event.Key == Gdk.Key.Return)
+		{
+			TestConnectionButton.Press();
+		}
+    }
+
+    [GLib.ConnectBefore]
+    protected void OnPasswordEntryKeyPressEvent(object o, KeyPressEventArgs args)
+    {
+		if (args.Event.Key == Gdk.Key.Return)
+		{
+			TestConnectionButton.Press();
+		}
     }
 }

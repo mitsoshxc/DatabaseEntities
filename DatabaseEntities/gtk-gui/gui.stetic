@@ -40,6 +40,7 @@
                 <property name="CanFocus">True</property>
                 <property name="IsEditable">True</property>
                 <property name="InvisibleChar">●</property>
+                <signal name="KeyPressEvent" handler="OnDatabaseEntryKeyPressEvent" />
               </widget>
               <packing>
                 <property name="Position">1</property>
@@ -78,6 +79,7 @@
                 <property name="CanFocus">True</property>
                 <property name="IsEditable">True</property>
                 <property name="InvisibleChar">●</property>
+                <signal name="KeyPressEvent" handler="OnUserNameEntryKeyPressEvent" />
               </widget>
               <packing>
                 <property name="Position">1</property>
@@ -116,6 +118,7 @@
                 <property name="IsEditable">True</property>
                 <property name="Visibility">False</property>
                 <property name="InvisibleChar">●</property>
+                <signal name="KeyPressEvent" handler="OnPasswordEntryKeyPressEvent" />
               </widget>
               <packing>
                 <property name="Position">1</property>

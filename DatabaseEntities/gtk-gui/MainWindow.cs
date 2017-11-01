@@ -317,6 +317,9 @@ public partial class MainWindow
 		this.DefaultHeight = 434;
 		this.Show();
 		this.Hidden += new global::System.EventHandler(this.OnHidden);
+		this.DatabaseEntry.KeyPressEvent += new global::Gtk.KeyPressEventHandler(this.OnDatabaseEntryKeyPressEvent);
+		this.UserNameEntry.KeyPressEvent += new global::Gtk.KeyPressEventHandler(this.OnUserNameEntryKeyPressEvent);
+		this.PasswordEntry.KeyPressEvent += new global::Gtk.KeyPressEventHandler(this.OnPasswordEntryKeyPressEvent);
 		this.combobox1.Changed += new global::System.EventHandler(this.OnCombobox1Changed);
 		this.CheckAllButton.Pressed += new global::System.EventHandler(this.OnCheckAllButtonPressed);
 		this.UnCheckAllButton.Pressed += new global::System.EventHandler(this.OnUnCheckAllButtonPressed);
