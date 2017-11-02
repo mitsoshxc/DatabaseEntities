@@ -121,7 +121,7 @@ public partial class MainWindow : Gtk.Window
         //    TableBox.Remove(item);
         //}
 
-        for (int i = 1; i < TableBox.Children.Length; i++)
+        for (int i = 0; i < TableBox.Children.Length; i++)
         {
             TableBox.Remove(TableBox.Children[i]);
         }
@@ -151,18 +151,18 @@ public partial class MainWindow : Gtk.Window
 
     protected void OnCheckAllButtonPressed(object sender, EventArgs e)
     {
-        if (TableBox.Children.Length > 1)
+        if (TableBox.Children.Length > 0)
         {
-			foreach (CheckButton item in TableBox.Children)
-			{
-				item.Active = true;
-			}
+            foreach (CheckButton item in TableBox.Children)
+            {
+                item.Active = true;
+            }
         }
     }
 
     protected void OnUnCheckAllButtonPressed(object sender, EventArgs e)
     {
-        if (TableBox.Children.Length > 1)
+        if (TableBox.Children.Length > 0)
         {
             foreach (CheckButton item in TableBox.Children)
             {
@@ -174,23 +174,23 @@ public partial class MainWindow : Gtk.Window
     protected void OnGenerateButtonPressed(object sender, EventArgs e)
     {
         string _path;
-		foreach (CheckButton item in TableBox.Children)
-		{
+        foreach (CheckButton item in TableBox.Children)
+        {
             if (item.Active)
             {
-                using(SqlConnection _conn = new SqlConnection(ConnectionString))
+                using (SqlConnection _conn = new SqlConnection(ConnectionString))
                 {
                     _conn.Open();
                     using (SqlCommand _cmd = new SqlCommand(
                     "SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='" + item.Label + "'",
                         _conn))
                     {
-                        using(SqlDataReader _reader = _cmd.ExecuteReader())
+                        using (SqlDataReader _reader = _cmd.ExecuteReader())
                         {
                             try
                             {
-								Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/Classes");
-								_path = Directory.GetCurrentDirectory() + "/Classes/" + item.Label + "s.cs";
+                                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/Classes");
+                                _path = Directory.GetCurrentDirectory() + "/Classes/" + item.Label + "s.cs";
                                 using (TextWriter _File = new StreamWriter(_path))
                                 {
                                     _File.WriteLine("using System.ComponentModel.DataAnnotations.Schema;");
@@ -211,27 +211,27 @@ public partial class MainWindow : Gtk.Window
                             }
                             catch (Exception ex)
                             {
-								MessageDialog _ErrorMessageDialog = new MessageDialog(this,
-																 DialogFlags.Modal,
-																 MessageType.Error,
-																 ButtonsType.Close,
-																 ex.Message);
-								_ErrorMessageDialog.Title = "File Generation Failed";
-								_ErrorMessageDialog.Run();
-								_ErrorMessageDialog.Destroy();
+                                MessageDialog _ErrorMessageDialog = new MessageDialog(this,
+                                                                 DialogFlags.Modal,
+                                                                 MessageType.Error,
+                                                                 ButtonsType.Close,
+                                                                 ex.Message);
+                                _ErrorMessageDialog.Title = "File Generation Failed";
+                                _ErrorMessageDialog.Run();
+                                _ErrorMessageDialog.Destroy();
                             }
                         }
                     }
                 }
 
-				MessageDialog _MessageDialog = new MessageDialog(this,
-																 DialogFlags.Modal,
-																 MessageType.Info,
-																 ButtonsType.Close,
-																 "File Generation Finished");
-				_MessageDialog.Title = "File Generated";
-				_MessageDialog.Run();
-				_MessageDialog.Destroy();
+                MessageDialog _MessageDialog = new MessageDialog(this,
+                                                                 DialogFlags.Modal,
+                                                                 MessageType.Info,
+                                                                 ButtonsType.Close,
+                                                                 "File Generation Finished");
+                _MessageDialog.Title = "File Generated";
+                _MessageDialog.Run();
+                _MessageDialog.Destroy();
             }
         }
     }
@@ -248,19 +248,19 @@ public partial class MainWindow : Gtk.Window
     [GLib.ConnectBefore]
     protected void OnUserNameEntryKeyPressEvent(object o, KeyPressEventArgs args)
     {
-		if (args.Event.Key == Gdk.Key.Return)
-		{
-			TestConnectionButton.Press();
-		}
+        if (args.Event.Key == Gdk.Key.Return)
+        {
+            TestConnectionButton.Press();
+        }
     }
 
     [GLib.ConnectBefore]
     protected void OnPasswordEntryKeyPressEvent(object o, KeyPressEventArgs args)
     {
-		if (args.Event.Key == Gdk.Key.Return)
-		{
-			TestConnectionButton.Press();
-		}
+        if (args.Event.Key == Gdk.Key.Return)
+        {
+            TestConnectionButton.Press();
+        }
     }
 
     protected void OnSearchEntryChanged(object sender, EventArgs e)
@@ -275,8 +275,51 @@ public partial class MainWindow : Gtk.Window
 
         if (TableBox.Children.Length < 20)
         {
-			for (int i = 1; i < TableBox.Children.Length; i++)
-			{
+            for (int i = 0; i < TableBox.Children.Length; i++)
+            {
+                if (!((CheckButton)TableBox.Children[i]).Label.Contains(SearchEntry.Text))
+                {
+                    ((CheckButton)TableBox.Children[i]).Visible = false;
+                }
+                else
+                {
+                    ((CheckButton)TableBox.Children[i]).Visible = true;
+                }
+            }
+        }
+        else
+        {
+            _threads = TableBox.Children.Length / (decimal)10.0;
+            _threadsRounded = (int)Math.Round(_threads, MidpointRounding.AwayFromZero);
+
+            //var _test = 0;
+
+
+            _counter = 0;
+            for (int i = 1; i <= 10; i++)
+            {
+                for (int j = _counter; j < Math.Truncate(_threads) * i; j++)
+                {
+                    Thread _thread = new Thread(() =>
+                   {
+                       if (!((CheckButton)TableBox.Children[j]).Label.Contains(SearchEntry.Text))
+                       {
+                           ((CheckButton)TableBox.Children[j]).Visible = false;
+                       }
+                       else
+                       {
+                           ((CheckButton)TableBox.Children[j]).Visible = true;
+                       }
+                    });
+
+                    _thread.Start();
+                    //_test++;
+                }
+                _counter = (int)Math.Truncate(_threads) * i;
+            }
+
+            for (int i = 0; i < TableBox.Children.Length % (decimal)10.0; i++)
+            {
 				if (!((CheckButton)TableBox.Children[i]).Label.Contains(SearchEntry.Text))
 				{
 					((CheckButton)TableBox.Children[i]).Visible = false;
@@ -285,40 +328,18 @@ public partial class MainWindow : Gtk.Window
 				{
 					((CheckButton)TableBox.Children[i]).Visible = true;
 				}
-			}
-        }
-        else
-        {
-            _threads = TableBox.Children.Length / (decimal)10.0;
-            _threadsRounded = (int)Math.Round(_threads, MidpointRounding.AwayFromZero);
-
-            var _test = 0;
-
-
-            _counter = 0;
-            for (int i = 1; i <= 10; i++)
-            {
-                    for (int j = _counter; j < Math.Truncate(_threads) * i; j++)
-                    {
-                        _test++;
-                    }
-                    _counter = (int)Math.Truncate(_threads) * i;
+                //_test++;
             }
 
-            for (int i = 0; i < TableBox.Children.Length % (decimal)10.0; i++)
-            {
-                _test++;
-            }
-
-            MessageDialog _MessageDialog = new MessageDialog(this,
-																 DialogFlags.Modal,
-																 MessageType.Info,
-																 ButtonsType.Close,
-																 "Table Length --> " + TableBox.Children.Length.ToString() +
-                                                            "\nTest --> " + _test.ToString());
-			_MessageDialog.Title = "File Generated";
-			_MessageDialog.Run();
-			_MessageDialog.Destroy();
+            //MessageDialog _MessageDialog = new MessageDialog(this,
+            //                                                     DialogFlags.Modal,
+            //                                                     MessageType.Info,
+            //                                                     ButtonsType.Close,
+            //                                                     "Table Length --> " + TableBox.Children.Length.ToString() +
+            //                                                "\nTest --> " + _test.ToString());
+            //_MessageDialog.Title = "File Generated";
+            //_MessageDialog.Run();
+            //_MessageDialog.Destroy();
         }
     }
 }
