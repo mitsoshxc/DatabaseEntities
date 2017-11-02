@@ -37,6 +37,8 @@ public partial class MainWindow
 
 	private global::Gtk.VBox TableBox;
 
+	private global::Gtk.Entry SearchEntry;
+
 	private global::Gtk.HBox hbox7;
 
 	private global::Gtk.Button CheckAllButton;
@@ -188,7 +190,7 @@ public partial class MainWindow
 		this.label4.WidthRequest = 100;
 		this.label4.Name = "label4";
 		this.label4.Xalign = 0F;
-		this.label4.Yalign = 0.05F;
+		this.label4.Yalign = 0.03F;
 		this.label4.LabelProp = global::Mono.Unix.Catalog.GetString("Tables");
 		this.hbox4.Add(this.label4);
 		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.label4]));
@@ -197,7 +199,7 @@ public partial class MainWindow
 		w13.Fill = false;
 		// Container child hbox4.Gtk.Box+BoxChild
 		this.TablesScroll = new global::Gtk.ScrolledWindow();
-		this.TablesScroll.HeightRequest = 150;
+		this.TablesScroll.HeightRequest = 200;
 		this.TablesScroll.CanFocus = true;
 		this.TablesScroll.Name = "TablesScroll";
 		this.TablesScroll.VscrollbarPolicy = ((global::Gtk.PolicyType)(0));
@@ -210,16 +212,30 @@ public partial class MainWindow
 		this.TableBox = new global::Gtk.VBox();
 		this.TableBox.Name = "TableBox";
 		this.TableBox.Spacing = 6;
+		// Container child TableBox.Gtk.Box+BoxChild
+		this.SearchEntry = new global::Gtk.Entry();
+		global::Gtk.Tooltips w15 = new Gtk.Tooltips();
+		w15.SetTip(this.SearchEntry, "Search", "Search");
+		this.SearchEntry.CanFocus = true;
+		this.SearchEntry.Name = "SearchEntry";
+		this.SearchEntry.IsEditable = true;
+		this.SearchEntry.HasFrame = false;
+		this.SearchEntry.InvisibleChar = '●';
+		this.TableBox.Add(this.SearchEntry);
+		global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.TableBox[this.SearchEntry]));
+		w16.Position = 0;
+		w16.Expand = false;
+		w16.Fill = false;
 		w14.Add(this.TableBox);
 		this.TablesScroll.Add(w14);
 		this.hbox4.Add(this.TablesScroll);
-		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.TablesScroll]));
-		w17.Position = 1;
+		global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.TablesScroll]));
+		w19.Position = 1;
 		this.vbox.Add(this.hbox4);
-		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox[this.hbox4]));
-		w18.Position = 4;
-		w18.Expand = false;
-		w18.Fill = false;
+		global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox[this.hbox4]));
+		w20.Position = 4;
+		w20.Expand = false;
+		w20.Fill = false;
 		// Container child vbox.Gtk.Box+BoxChild
 		this.hbox7 = new global::Gtk.HBox();
 		this.hbox7.Name = "hbox7";
@@ -232,9 +248,9 @@ public partial class MainWindow
 		this.CheckAllButton.UseUnderline = true;
 		this.CheckAllButton.Label = global::Mono.Unix.Catalog.GetString("Check All");
 		this.hbox7.Add(this.CheckAllButton);
-		global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.CheckAllButton]));
-		w19.Position = 0;
-		w19.Fill = false;
+		global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.CheckAllButton]));
+		w21.Position = 0;
+		w21.Fill = false;
 		// Container child hbox7.Gtk.Box+BoxChild
 		this.UnCheckAllButton = new global::Gtk.Button();
 		this.UnCheckAllButton.WidthRequest = 80;
@@ -243,20 +259,20 @@ public partial class MainWindow
 		this.UnCheckAllButton.UseUnderline = true;
 		this.UnCheckAllButton.Label = global::Mono.Unix.Catalog.GetString("Uncheck All");
 		this.hbox7.Add(this.UnCheckAllButton);
-		global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.UnCheckAllButton]));
-		w20.Position = 1;
-		w20.Fill = false;
+		global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.UnCheckAllButton]));
+		w22.Position = 1;
+		w22.Fill = false;
 		this.vbox.Add(this.hbox7);
-		global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.vbox[this.hbox7]));
-		w21.Position = 5;
-		w21.Expand = false;
-		w21.Fill = false;
+		global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox[this.hbox7]));
+		w23.Position = 5;
+		w23.Expand = false;
+		w23.Fill = false;
 		// Container child vbox.Gtk.Box+BoxChild
 		this.hseparator1 = new global::Gtk.HSeparator();
 		this.hseparator1.Name = "hseparator1";
 		this.vbox.Add(this.hseparator1);
-		global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.vbox[this.hseparator1]));
-		w22.Position = 6;
+		global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.vbox[this.hseparator1]));
+		w24.Position = 6;
 		// Container child vbox.Gtk.Box+BoxChild
 		this.hbox6 = new global::Gtk.HBox();
 		this.hbox6.Name = "hbox6";
@@ -269,10 +285,10 @@ public partial class MainWindow
 		this.CloseButton.UseUnderline = true;
 		this.CloseButton.Label = global::Mono.Unix.Catalog.GetString("Close");
 		this.hbox6.Add(this.CloseButton);
-		global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.CloseButton]));
-		w23.Position = 0;
-		w23.Expand = false;
-		w23.Fill = false;
+		global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.CloseButton]));
+		w25.Position = 0;
+		w25.Expand = false;
+		w25.Fill = false;
 		// Container child hbox6.Gtk.Box+BoxChild
 		this.TestConnectionButton = new global::Gtk.Button();
 		this.TestConnectionButton.WidthRequest = 130;
@@ -281,17 +297,17 @@ public partial class MainWindow
 		this.TestConnectionButton.UseUnderline = true;
 		this.TestConnectionButton.Label = global::Mono.Unix.Catalog.GetString("Test Connection");
 		this.hbox6.Add(this.TestConnectionButton);
-		global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.TestConnectionButton]));
-		w24.Position = 1;
-		w24.Expand = false;
-		w24.Fill = false;
+		global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.TestConnectionButton]));
+		w26.Position = 1;
+		w26.Expand = false;
+		w26.Fill = false;
 		// Container child hbox6.Gtk.Box+BoxChild
 		this.vseparator1 = new global::Gtk.VSeparator();
 		this.vseparator1.Name = "vseparator1";
 		this.hbox6.Add(this.vseparator1);
-		global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.vseparator1]));
-		w25.Position = 2;
-		w25.Padding = ((uint)(14));
+		global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.vseparator1]));
+		w27.Position = 2;
+		w27.Padding = ((uint)(14));
 		// Container child hbox6.Gtk.Box+BoxChild
 		this.GenerateButton = new global::Gtk.Button();
 		this.GenerateButton.WidthRequest = 130;
@@ -300,27 +316,28 @@ public partial class MainWindow
 		this.GenerateButton.UseUnderline = true;
 		this.GenerateButton.Label = global::Mono.Unix.Catalog.GetString("Generate Entities");
 		this.hbox6.Add(this.GenerateButton);
-		global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.GenerateButton]));
-		w26.Position = 3;
-		w26.Fill = false;
+		global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.GenerateButton]));
+		w28.Position = 3;
+		w28.Fill = false;
 		this.vbox.Add(this.hbox6);
-		global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.vbox[this.hbox6]));
-		w27.Position = 7;
-		w27.Expand = false;
-		w27.Fill = false;
+		global::Gtk.Box.BoxChild w29 = ((global::Gtk.Box.BoxChild)(this.vbox[this.hbox6]));
+		w29.Position = 7;
+		w29.Expand = false;
+		w29.Fill = false;
 		this.Add(this.vbox);
 		if ((this.Child != null))
 		{
 			this.Child.ShowAll();
 		}
 		this.DefaultWidth = 408;
-		this.DefaultHeight = 434;
+		this.DefaultHeight = 452;
 		this.Show();
 		this.Hidden += new global::System.EventHandler(this.OnHidden);
 		this.DatabaseEntry.KeyPressEvent += new global::Gtk.KeyPressEventHandler(this.OnDatabaseEntryKeyPressEvent);
 		this.UserNameEntry.KeyPressEvent += new global::Gtk.KeyPressEventHandler(this.OnUserNameEntryKeyPressEvent);
 		this.PasswordEntry.KeyPressEvent += new global::Gtk.KeyPressEventHandler(this.OnPasswordEntryKeyPressEvent);
 		this.combobox1.Changed += new global::System.EventHandler(this.OnCombobox1Changed);
+		this.SearchEntry.Changed += new global::System.EventHandler(this.OnSearchEntryChanged);
 		this.CheckAllButton.Pressed += new global::System.EventHandler(this.OnCheckAllButtonPressed);
 		this.UnCheckAllButton.Pressed += new global::System.EventHandler(this.OnUnCheckAllButtonPressed);
 		this.CloseButton.Pressed += new global::System.EventHandler(this.OnCloseButtonPressed);

@@ -6,7 +6,7 @@
   <import>
     <widget-library name="../bin/Debug/DatabaseEntities.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="408 434">
+  <widget class="Gtk.Window" id="MainWindow" design-size="408 452">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Database Entities</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -179,7 +179,7 @@
                 <property name="MemberName" />
                 <property name="WidthRequest">100</property>
                 <property name="Xalign">0</property>
-                <property name="Yalign">0.05</property>
+                <property name="Yalign">0.03</property>
                 <property name="LabelProp" translatable="yes">Tables</property>
               </widget>
               <packing>
@@ -192,7 +192,7 @@
             <child>
               <widget class="Gtk.ScrolledWindow" id="TablesScroll">
                 <property name="MemberName" />
-                <property name="HeightRequest">150</property>
+                <property name="HeightRequest">200</property>
                 <property name="CanFocus">True</property>
                 <property name="VscrollbarPolicy">Always</property>
                 <property name="HscrollbarPolicy">Always</property>
@@ -206,7 +206,21 @@
                         <property name="MemberName" />
                         <property name="Spacing">6</property>
                         <child>
-                          <placeholder />
+                          <widget class="Gtk.Entry" id="SearchEntry">
+                            <property name="MemberName" />
+                            <property name="Tooltip" translatable="yes">Search</property>
+                            <property name="CanFocus">True</property>
+                            <property name="IsEditable">True</property>
+                            <property name="HasFrame">False</property>
+                            <property name="InvisibleChar">●</property>
+                            <signal name="Changed" handler="OnSearchEntryChanged" />
+                          </widget>
+                          <packing>
+                            <property name="Position">0</property>
+                            <property name="AutoSize">True</property>
+                            <property name="Expand">False</property>
+                            <property name="Fill">False</property>
+                          </packing>
                         </child>
                         <child>
                           <placeholder />
