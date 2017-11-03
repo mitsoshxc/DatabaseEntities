@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Gtk;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
+using System.Threading;
 
 public partial class MainWindow
 {

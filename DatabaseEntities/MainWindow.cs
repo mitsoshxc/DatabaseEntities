@@ -116,14 +116,9 @@ public partial class MainWindow : Gtk.Window
 
         ConnectionString += ";Database=" + combobox1.ActiveText;
 
-        //foreach (var item in TableBox.Children)
-        //{
-        //    TableBox.Remove(item);
-        //}
-
-        for (int i = 0; i < TableBox.Children.Length; i++)
+        foreach (var item in TableBox.Children)
         {
-            TableBox.Remove(TableBox.Children[i]);
+            TableBox.Remove(item);
         }
 
         using (SqlConnection _conn = new SqlConnection(ConnectionString))
@@ -265,81 +260,28 @@ public partial class MainWindow : Gtk.Window
 
     protected void OnSearchEntryChanged(object sender, EventArgs e)
     {
-        decimal _threads;
-        int _threadsRounded;
-        int _threadsRemaining;
-        int _counter;
-
-        Thread _thread0, _thread1, _thread2, _thread3, _thread4, _thread5,
-        thread6, _thread7, _thread18, _thread9;
-
-        if (TableBox.Children.Length < 20)
+        foreach (CheckButton item in TableBox.Children)
         {
-            for (int i = 0; i < TableBox.Children.Length; i++)
+            if (!item.Label.ToUpper().Contains(SearchEntry.Text.ToUpper()))
             {
-                if (!((CheckButton)TableBox.Children[i]).Label.Contains(SearchEntry.Text))
-                {
-                    ((CheckButton)TableBox.Children[i]).Visible = false;
-                }
-                else
-                {
-                    ((CheckButton)TableBox.Children[i]).Visible = true;
-                }
+                item.Visible = false;
+            }
+            else
+            {
+                item.Visible = true;
             }
         }
-        else
-        {
-            _threads = TableBox.Children.Length / (decimal)10.0;
-            _threadsRounded = (int)Math.Round(_threads, MidpointRounding.AwayFromZero);
 
-            //var _test = 0;
+        //_threads = TableBox.Children.Length / (decimal)10.0;
+        //_threadsRounded = (int)Math.Round(_threads, MidpointRounding.AwayFromZero);
 
+        //_counter = 0;
 
-            _counter = 0;
-            for (int i = 1; i <= 10; i++)
-            {
-                for (int j = _counter; j < Math.Truncate(_threads) * i; j++)
-                {
-                    Thread _thread = new Thread(() =>
-                   {
-                       if (!((CheckButton)TableBox.Children[j]).Label.Contains(SearchEntry.Text))
-                       {
-                           ((CheckButton)TableBox.Children[j]).Visible = false;
-                       }
-                       else
-                       {
-                           ((CheckButton)TableBox.Children[j]).Visible = true;
-                       }
-                    });
-
-                    _thread.Start();
-                    //_test++;
-                }
-                _counter = (int)Math.Truncate(_threads) * i;
-            }
-
-            for (int i = 0; i < TableBox.Children.Length % (decimal)10.0; i++)
-            {
-				if (!((CheckButton)TableBox.Children[i]).Label.Contains(SearchEntry.Text))
-				{
-					((CheckButton)TableBox.Children[i]).Visible = false;
-				}
-				else
-				{
-					((CheckButton)TableBox.Children[i]).Visible = true;
-				}
-                //_test++;
-            }
-
-            //MessageDialog _MessageDialog = new MessageDialog(this,
-            //                                                     DialogFlags.Modal,
-            //                                                     MessageType.Info,
-            //                                                     ButtonsType.Close,
-            //                                                     "Table Length --> " + TableBox.Children.Length.ToString() +
-            //                                                "\nTest --> " + _test.ToString());
-            //_MessageDialog.Title = "File Generated";
-            //_MessageDialog.Run();
-            //_MessageDialog.Destroy();
-        }
+        //for (int i = 1; i < 10; i++)
+        //for (int j = _counter; j < Math.Truncate(_threads) * i; j++)
+        //{
+        //    ...
+        //    _counter = (int)Math.Truncate(_threads) * i;
+        //}
     }
 }
